@@ -1,0 +1,860 @@
+Now I'll replace the classes section with photo cards for each yoga type.Also add the yoga-types link to the nav:Done! Here is the full updated code:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beckie's Yoga Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:     #8aad8a;
+      --deep:     #2c3e2d;
+      --blush:    #e8d5c4;
+      --warm:     #c4956a;
+      --cream:    #faf6f0;
+      --text:     #3a3028;
+      --light:    #f0ebe3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250,246,240,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(138,173,138,0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--deep);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--sage); }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      padding: 8rem 4rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      background: linear-gradient(135deg, var(--cream) 60%, var(--blush) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute; top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138,173,138,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 540px;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm);
+      border: 1px solid var(--warm);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--deep);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-heading em { font-style: italic; color: var(--sage); }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-weight: 300;
+      color: var(--warm);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1.8rem;
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: #6a5c50;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: 0.9rem 2.2rem;
+      background: var(--deep);
+      color: var(--cream);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+
+    .btn-outline {
+      padding: 0.9rem 2.2rem;
+      border: 1.5px solid var(--deep);
+      color: var(--deep);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--deep); color: var(--cream); transform: translateY(-2px); }
+
+    .hero-image-wrap {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeUp 1.2s ease 0.2s both;
+    }
+
+    .hero-image-frame {
+      position: relative;
+      width: 340px;
+      height: 440px;
+    }
+
+    .hero-image-frame::before {
+      content: '';
+      position: absolute;
+      top: -14px; left: -14px;
+      width: 100%; height: 100%;
+      border: 2px solid var(--sage);
+      border-radius: 50% 50% 48% 52% / 55% 48% 52% 45%;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50% 50% 48% 52% / 55% 48% 52% 45%;
+      position: relative; z-index: 1;
+      box-shadow: 0 20px 60px rgba(44,62,45,0.18);
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: -18px; right: -20px; z-index: 2;
+      background: var(--warm);
+      color: #fff;
+      border-radius: 50%;
+      width: 90px; height: 90px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(196,149,106,0.35);
+    }
+
+    .hero-badge strong { font-size: 1.4rem; }
+
+    .hero-stats {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      animation: fadeUp 1.2s ease 0.4s both;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--deep);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #9a8a7a;
+      margin-top: 0.3rem;
+    }
+
+    .stat-divider {
+      width: 1px; height: 40px;
+      background: rgba(138,173,138,0.4);
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--deep);
+      color: var(--cream);
+      padding: 6rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 5rem;
+    }
+
+    .about-quote { flex: 1; }
+
+    .about-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      line-height: 1.55;
+      color: var(--blush);
+      border-left: 3px solid var(--sage);
+      padding-left: 2rem;
+    }
+
+    .about-quote cite {
+      display: block;
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      padding-left: 2rem;
+      font-style: normal;
+    }
+
+    .about-body { flex: 1; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .about-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-bottom: 1.4rem;
+      line-height: 1.25;
+    }
+
+    .about-body p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: rgba(250,246,240,0.75);
+      font-weight: 300;
+    }
+
+    /* ── CLASSES ── */
+    #classes {
+      padding: 6rem 4rem;
+      background: var(--light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--deep);
+      margin-bottom: 0.7rem;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: #7a6a5a;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: var(--cream);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(44,62,45,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(44,62,45,0.13); }
+
+    .card-top { height: 8px; background: var(--sage); }
+    .card:nth-child(2) .card-top { background: var(--warm); }
+    .card:nth-child(3) .card-top { background: var(--blush); }
+    .card:nth-child(4) .card-top { background: var(--deep); }
+
+    .card-body { padding: 1.8rem; }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--deep);
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      font-size: 0.87rem;
+      line-height: 1.75;
+      color: #6a5c50;
+      font-weight: 300;
+    }
+
+    .card-level {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+
+    /* ── YOGA TYPES (photo cards) ── */
+    #yoga-types {
+      padding: 6rem 4rem;
+      background: var(--cream);
+    }
+
+    .yoga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .yoga-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(44,62,45,0.10);
+      transition: transform 0.35s, box-shadow 0.35s;
+      background: var(--deep);
+      position: relative;
+    }
+
+    .yoga-card:hover { transform: translateY(-8px); box-shadow: 0 18px 48px rgba(44,62,45,0.18); }
+
+    .yoga-card-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .yoga-card:hover .yoga-card-img { transform: scale(1.05); }
+
+    .yoga-card-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 240px;
+      background: linear-gradient(to bottom, transparent 40%, rgba(44,62,45,0.55) 100%);
+      pointer-events: none;
+    }
+
+    .yoga-card-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: rgba(250,246,240,0.92);
+      color: var(--warm);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+    }
+
+    .yoga-card-info { padding: 1.5rem 1.6rem 1.8rem; }
+
+    .yoga-card-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .yoga-card-info p {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: rgba(250,246,240,0.7);
+      font-weight: 300;
+    }
+
+    .yoga-tag-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .yoga-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      border: 1px solid rgba(138,173,138,0.5);
+      color: var(--sage);
+    }
+
+    /* ── SCHEDULE ── */
+    #schedule {
+      padding: 6rem 4rem;
+      background: var(--light);
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .slot {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 1.2rem;
+      border-left: 3px solid var(--sage);
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .slot:hover { border-color: var(--warm); background: #fff; }
+
+    .slot-day {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm);
+      font-weight: 600;
+    }
+
+    .slot-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--deep);
+      margin: 0.2rem 0;
+    }
+
+    .slot-class { font-size: 0.8rem; color: #7a6a5a; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--blush);
+      padding: 6rem 4rem;
+      text-align: center;
+    }
+
+    #contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--deep);
+      margin-bottom: 1rem;
+    }
+
+    #contact p {
+      font-size: 0.95rem;
+      color: #6a5048;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 1rem 1.8rem;
+      font-size: 0.85rem;
+      color: var(--deep);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .contact-item:hover { background: var(--deep); color: var(--cream); transform: translateY(-3px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      color: rgba(250,246,240,0.55);
+      text-align: center;
+      padding: 2rem 4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    footer span { color: var(--sage); }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      #home { flex-direction: column; padding: 7rem 2rem 3rem; gap: 2.5rem; }
+      .hero-stats { flex-direction: row; gap: 1.5rem; }
+      .stat-divider { width: 40px; height: 1px; }
+      #about { flex-direction: column; padding: 4rem 2rem; gap: 2.5rem; }
+      #classes, #yoga-types, #schedule, #contact { padding: 4rem 2rem; }
+      .yoga-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 580px) {
+      .yoga-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Beckie's Yoga</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#yoga-types">Yoga Types</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / HOME -->
+<section id="home">
+
+  <div class="hero-text">
+    <span class="hero-tag">✦ Mind · Body · Soul</span>
+    <h1 class="hero-heading">
+      Find Your Flow<br>With <em>Beckie</em>
+    </h1>
+    <span class="hero-name">Beckie's<br>Yoga Studio</span>
+    <p class="hero-sub">
+      Step onto the mat and into yourself. Beckie blends ancient wisdom
+      with modern movement — guiding you through breath, balance, and
+      profound inner stillness.
+    </p>
+    <div class="hero-btns">
+      <a href="#classes" class="btn-primary">Explore Classes</a>
+      <a href="#contact" class="btn-outline">Book a Session</a>
+    </div>
+  </div>
+
+  <div class="hero-image-wrap">
+    <div class="hero-image-frame">
+      <img
+        src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=700&q=80"
+        alt="Yoga pose by Beckie"
+      />
+      <div class="hero-badge"><strong>10+</strong> Years<br>Teaching</div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Students</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Styles</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">Love it</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-quote">
+    <blockquote>
+      "Yoga is not about touching your toes. It is about what you learn
+      on the way down."
+    </blockquote>
+    <cite>— Beckie's Philosophy</cite>
+  </div>
+  <div class="about-body">
+    <div class="section-label">About Beckie</div>
+    <h2>A Decade of Mindful Movement</h2>
+    <p>
+      Beckie is a certified 500-hour RYT instructor with a passion for
+      making yoga accessible to everyone — from beginners stepping onto
+      the mat for the first time, to experienced practitioners deepening
+      their practice. Trained in Rishikesh, India, she weaves Hatha,
+      Vinyasa, and Restorative traditions into every class.
+    </p>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="section-header">
+    <div class="section-label">What We Offer</div>
+    <h2>Classes for Every Soul</h2>
+    <p>Choose a style that speaks to where you are today.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🌿</div>
+        <h3>Hatha Flow</h3>
+        <p>Slow, intentional postures that build strength and flexibility from the inside out.</p>
+        <span class="card-level">All Levels</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🔥</div>
+        <h3>Vinyasa Power</h3>
+        <p>Breath-synchronised sequences that build heat, stamina, and mental clarity.</p>
+        <span class="card-level">Intermediate</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🌙</div>
+        <h3>Yin & Restore</h3>
+        <p>Deep holds and guided relaxation to melt tension and nurture your nervous system.</p>
+        <span class="card-level">Beginner Friendly</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🧘</div>
+        <h3>Meditation</h3>
+        <p>Guided breathwork and mindfulness sessions to quiet the mind and centre the spirit.</p>
+        <span class="card-level">All Levels</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YOGA TYPES WITH PHOTOS -->
+<section id="yoga-types">
+  <div class="section-header">
+    <div class="section-label">Explore the Styles</div>
+    <h2>Types of Yoga We Teach</h2>
+    <p>Every body is different — find the practice that speaks to yours.</p>
+  </div>
+
+  <div class="yoga-grid">
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=600&q=80" alt="Hatha Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">All Levels</span>
+      <div class="yoga-card-info">
+        <h3>🌿 Hatha Yoga</h3>
+        <p>The foundation of all yoga. Slow, deliberate poses paired with conscious breathing to build strength, flexibility, and inner calm.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Beginner</span>
+          <span class="yoga-tag">Balance</span>
+          <span class="yoga-tag">Breathwork</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&q=80" alt="Vinyasa Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">Intermediate</span>
+      <div class="yoga-card-info">
+        <h3>🔥 Vinyasa Flow</h3>
+        <p>Dynamic, breath-linked sequences that flow from one pose to the next — building heat, stamina and a moving meditation.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Cardio</span>
+          <span class="yoga-tag">Strength</span>
+          <span class="yoga-tag">Flow</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80" alt="Yin Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">All Levels</span>
+      <div class="yoga-card-info">
+        <h3>🌙 Yin Yoga</h3>
+        <p>Long, passive holds targeting deep connective tissue and fascia. Deeply meditative and perfect for stress relief and flexibility.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Flexibility</span>
+          <span class="yoga-tag">Relaxation</span>
+          <span class="yoga-tag">Meditative</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1593810451137-5dc55105dace?w=600&q=80" alt="Restorative Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">Beginner Friendly</span>
+      <div class="yoga-card-info">
+        <h3>🕊️ Restorative Yoga</h3>
+        <p>Fully supported poses with props that invite deep rest. Ideal for recovery, burnout, anxiety, or simply slowing down.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Rest</span>
+          <span class="yoga-tag">Healing</span>
+          <span class="yoga-tag">Nervous System</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1510894347713-fc3dc6166086?w=600&q=80" alt="Ashtanga Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">Advanced</span>
+      <div class="yoga-card-info">
+        <h3>⚡ Ashtanga Yoga</h3>
+        <p>A rigorous, structured series of postures performed in a set sequence. Builds serious strength, discipline and endurance.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Power</span>
+          <span class="yoga-tag">Discipline</span>
+          <span class="yoga-tag">Series</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="yoga-card">
+      <img class="yoga-card-img" src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&q=80" alt="Kundalini Yoga"/>
+      <div class="yoga-card-overlay"></div>
+      <span class="yoga-card-badge">All Levels</span>
+      <div class="yoga-card-info">
+        <h3>✨ Kundalini Yoga</h3>
+        <p>Combines movement, breathwork, mantra and meditation to awaken energy and consciousness. Spiritual and deeply transformative.</p>
+        <div class="yoga-tag-row">
+          <span class="yoga-tag">Spiritual</span>
+          <span class="yoga-tag">Mantra</span>
+          <span class="yoga-tag">Energy</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="section-header">
+    <div class="section-label">Weekly Timetable</div>
+    <h2>Find Your Session</h2>
+    <p>Drop-in or book your spot in advance.</p>
+  </div>
+  <div class="schedule-grid">
+    <div class="slot"><div class="slot-day">Monday</div><div class="slot-time">7:00 AM</div><div class="slot-class">Hatha Flow</div></div>
+    <div class="slot"><div class="slot-day">Tuesday</div><div class="slot-time">6:30 PM</div><div class="slot-class">Vinyasa Power</div></div>
+    <div class="slot"><div class="slot-day">Wednesday</div><div class="slot-time">7:00 AM</div><div class="slot-class">Meditation</div></div>
+    <div class="slot"><div class="slot-day">Thursday</div><div class="slot-time">6:00 PM</div><div class="slot-class">Yin & Restore</div></div>
+    <div class="slot"><div class="slot-day">Friday</div><div class="slot-time">7:00 AM</div><div class="slot-class">Hatha Flow</div></div>
+    <div class="slot"><div class="slot-day">Saturday</div><div class="slot-time">9:00 AM</div><div class="slot-class">Vinyasa Power</div></div>
+    <div class="slot"><div class="slot-day">Sunday</div><div class="slot-time">10:00 AM</div><div class="slot-class">Yin & Restore</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Begin Your Journey with Beckie</h2>
+  <p>Ready to step onto the mat? Reach out and let's find the perfect class for you.</p>
+  <div class="contact-links">
+    <a href="mailto:beckie@yogastudio.com" class="contact-item">✉️ beckie@yogastudio.com</a>
+    <a href="tel:+256769403481" class="contact-item">📞 +256 769 403 481</a>
+    <a href="#" class="contact-item">📍 Kampala, Uganda</a>
+    <a href="#" class="contact-item">📸 @beckieyoga</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Beckie's Yoga Studio</span> · Crafted with love & mindfulness</p>
+</footer>
+
+</body>
+</html>
+```
